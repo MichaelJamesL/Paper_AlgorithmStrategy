@@ -1,10 +1,8 @@
 import { PersonGraph, PersonNode } from "./fetchDataWiki";
 
 /**
- * Calculates the heuristic value for a node based on its distance to the end node
- * @param node 
- * @param endNode 
- * @returns 
+ * Spatiotemporal heuristic h(n, t): Manhattan sum over birthplace lat/lon and
+ * birth/death year differences. Estimates the remaining cost toward the target.
  */
 export function heuristic(node: PersonNode, endNode: PersonNode): number {
     // Manhattan distance heuristic based on birth and death location + year
@@ -15,56 +13,69 @@ export function heuristic(node: PersonNode, endNode: PersonNode): number {
     return latDiff + lonDiff + birthYearDiff + deathYearDiff;
 }
 
-/**
- * Recursively performs A* search on the graph
- * @param graph 
- * @param node 
- * @param endNode 
- * @param adjacencyList 
- * @param visited 
- * @param path 
- * @param g 
- * @returns 
- */
-function recursiveAStar(graph: PersonGraph, node: PersonNode, endNode: PersonNode, adjacencyList: Map<string, Set<string>>, visited: Set<string>, path: string[], g: number): string[] | null {
-    if (node.id === endNode.id) {
-        return path;
+/** Binary min-heap keyed by f-score: the A* open set / priority queue. */
+class MinHeap {
+    private items: { id: string; f: number }[] = [];
+
+    get size(): number {
+        return this.items.length;
     }
-    visited.add(node.id);
-    // buildAdjacency stores neighbors as a Set, copy into an array so we can sort by heuristic.
-    const neighbors = [...(adjacencyList.get(node.id) ?? [])];
-    neighbors.sort((a, b) => {
-        const aNode = graph.nodes.find(n => n.id === a);
-        const bNode = graph.nodes.find(n => n.id === b);
-        if (!aNode || !bNode) return 0;
-        return heuristic(aNode, endNode) - heuristic(bNode, endNode);
-    });
-    for (const neighborId of neighbors) {
-        if (!visited.has(neighborId)) {
-            const neighborNode = graph.nodes.find(n => n.id === neighborId);
-            if (neighborNode) {
-                const result = recursiveAStar(graph, neighborNode, endNode, adjacencyList, visited, [...path, neighborId], g + 1);
-                if (result) {
-                    return result;
-                }
-            }
+
+    push(id: string, f: number): void {
+        const items = this.items;
+        items.push({ id, f });
+        // Shift up to restore the heap order.
+        let i = items.length - 1;
+        while (i > 0) {
+            const parent = (i - 1) >> 1;
+            if (items[parent].f <= items[i].f) break;
+            [items[parent], items[i]] = [items[i], items[parent]];
+            i = parent;
         }
     }
-    visited.delete(node.id);
-    return null;
+
+    pop(): string {
+        const items = this.items;
+        const top = items[0];
+        const last = items.pop()!;
+        if (items.length > 0) {
+            // Move the last item to the root and shift it down.
+            items[0] = last;
+            let i = 0;
+            for (;;) {
+                const left = 2 * i + 1;
+                const right = 2 * i + 2;
+                let smallest = i;
+                if (left < items.length && items[left].f < items[smallest].f) smallest = left;
+                if (right < items.length && items[right].f < items[smallest].f) smallest = right;
+                if (smallest === i) break;
+                [items[smallest], items[i]] = [items[i], items[smallest]];
+                i = smallest;
+            }
+        }
+        return top.id;
+    }
+}
+
+/** Walk the predecessor map back to the start to build the path in forward order. */
+function reconstructPath(cameFrom: Map<string, string>, current: string): string[] {
+    const path = [current];
+    while (cameFrom.has(current)) {
+        current = cameFrom.get(current)!;
+        path.push(current);
+    }
+    return path.reverse();
 }
 
 /**
- * Performs A* search on the given graph to find a path from startId to endId
- * @param graph 
- * @param adjacencyList 
- * @param startId 
- * @param endId 
- * @returns 
+ * A* search with f(n) = g(n) + h(n) and unit edge cost.
+ * Expands the open node with the smallest f, relaxes each neighbour's g, and
+ * reconstructs the path via cameFrom. Optimal when the heuristic is admissible.
  */
 export function aStarSearch(graph: PersonGraph, adjacencyList: Map<string, Set<string>>, startId: string, endId: string): string[] | null {
-    const startNode = graph.nodes.find(node => node.id === startId);
-    const endNode = graph.nodes.find(node => node.id === endId);
+    const nodeById = new Map(graph.nodes.map(n => [n.id, n]));
+    const startNode = nodeById.get(startId);
+    const endNode = nodeById.get(endId);
     if (!startNode || !endNode) {
         return null; // Start or end node not found
     }
@@ -76,5 +87,34 @@ export function aStarSearch(graph: PersonGraph, adjacencyList: Map<string, Set<s
     if (startNode.sitelinks < 5 || endNode.sitelinks < 5) {
         return null; // Not enough sitelinks to consider
     }
-    return recursiveAStar(graph, startNode, endNode, adjacencyList, new Set(), [startId], 0);
+
+    const gScore = new Map<string, number>([[startId, 0]]); // best cost-so-far per node (Infinity if unseen)
+    const cameFrom = new Map<string, string>();
+    const closed = new Set<string>();
+    const open = new MinHeap();
+    open.push(startId, heuristic(startNode, endNode));
+
+    while (open.size > 0) {
+        const currentId = open.pop(); // node with the smallest f
+        if (currentId === endId) {
+            return reconstructPath(cameFrom, currentId);
+        }
+        if (closed.has(currentId)) continue; // stale duplicate left over from a worse f
+        closed.add(currentId);
+
+        const g = gScore.get(currentId)!;
+        for (const neighborId of adjacencyList.get(currentId) ?? []) {
+            if (closed.has(neighborId)) continue;
+            if (!nodeById.has(neighborId)) continue;
+            const tentativeG = g + 1; // unit edge cost
+            if (tentativeG < (gScore.get(neighborId) ?? Infinity)) {
+                // Found a cheaper path to neighbor: relax g and requeue it.
+                cameFrom.set(neighborId, currentId);
+                gScore.set(neighborId, tentativeG);
+                open.push(neighborId, tentativeG + heuristic(nodeById.get(neighborId)!, endNode));
+            }
+        }
+    }
+
+    return null; // Open set exhausted: no path exists
 }
