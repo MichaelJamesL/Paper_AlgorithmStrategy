@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ibm-blue: #0f62fe;
+  --color-ibm-blue-hover: #0050e6;
+  --color-ibm-blue-60: #0043ce;
+  --color-ibm-blue-80: #002d9c;
+
+  --color-ink: #161616;
+  --color-ink-muted: #525252;
+  --color-ink-subtle: #8c8c8c;
+
+  --color-canvas: #ffffff;
+  --color-surface-1: #f4f4f4;
+  --color-surface-2: #e0e0e0;
+
+  --color-hairline: #e0e0e0;
+  --color-hairline-strong: #161616;
+
+  --color-inverse-canvas: #161616;
+  --color-inverse-surface-1: #262626;
+  --color-inverse-ink: #ffffff;
+  --color-inverse-ink-muted: #c6c6c6;
+
+  --color-success: #24a148;
+  --color-warning: #f1c21b;
+  --color-error: #da1e28;
+}
+
+@theme inline {
+  --font-sans: var(--font-plex-sans), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "IBM Plex Mono", monospace;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  letter-spacing: 0.16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@keyframes pf-indeterminate {
+  0% {
+    left: -45%;
+    width: 45%;
+  }
+  60% {
+    width: 60%;
+  }
+  100% {
+    left: 100%;
+    width: 45%;
+  }
+}
+
+.pf-progress > span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--color-ibm-blue);
+  animation: pf-indeterminate 1.4s ease-in-out infinite;
+}
