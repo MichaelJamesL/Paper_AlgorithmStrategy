@@ -136,7 +136,8 @@ export default function Home() {
 
           <p className="mt-4 max-w-2xl text-[12px] leading-[1.33] tracking-[0.32px] text-ink-subtle">
             Type a person&apos;s name or its Wikidata ID (starting with &quot;Q&quot;). We match it to Wikidata (the most popular match wins, so
-            spelling matters). The first search can take up to a minute while the subgraph is built.
+            spelling matters). The first search can take up to a minute while the subgraph is built. Deployed version may failed because 
+            of vercel serverless function execution time limit, you can run it locally to get the full results.
           </p>
         </div>
       </section>
