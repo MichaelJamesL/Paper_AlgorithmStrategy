@@ -373,7 +373,7 @@ export async function buildPersonGraph(
     relations = Object.keys(INTERPERSONAL_RELATIONS),
     lang = "en",
     endpoint = WIKIDATA_SPARQL_ENDPOINT,
-    timeoutMs = 60_000,
+    timeoutMs = 90_000,
     concurrency = 3,
     signal,
   } = options;
