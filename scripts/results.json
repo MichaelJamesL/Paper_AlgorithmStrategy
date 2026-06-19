@@ -1,0 +1,467 @@
+{
+  "presets_k60": {
+    "Einstein -> Plato": {
+      "found": true,
+      "hops": 2,
+      "nodes": 495,
+      "edges": 381,
+      "buildMs": 70925,
+      "searchMs": 3,
+      "path": [
+        {
+          "id": "Q937",
+          "name": "Albert Einstein",
+          "birthYear": 1879,
+          "deathYear": 1955
+        },
+        {
+          "id": "Q35802",
+          "name": "Benedictus de Spinoza",
+          "birthYear": 1632,
+          "deathYear": 1677
+        },
+        {
+          "id": "Q859",
+          "name": "Plato",
+          "birthYear": -428,
+          "deathYear": -348
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q937",
+          "to": "Q35802",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q35802",
+          "to": "Q859",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "Napoleon -> Caesar": {
+      "found": true,
+      "hops": 2,
+      "nodes": 495,
+      "edges": 382,
+      "buildMs": 71267,
+      "searchMs": 1,
+      "path": [
+        {
+          "id": "Q517",
+          "name": "Napoleon",
+          "birthYear": 1769,
+          "deathYear": 1821
+        },
+        {
+          "id": "Q9358",
+          "name": "Friedrich Nietzsche",
+          "birthYear": 1844,
+          "deathYear": 1900
+        },
+        {
+          "id": "Q1048",
+          "name": "Julius Caesar",
+          "birthYear": -99,
+          "deathYear": -43
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q517",
+          "to": "Q9358",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": true
+        },
+        {
+          "from": "Q9358",
+          "to": "Q1048",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "Newton -> Aristotle": {
+      "found": true,
+      "hops": 2,
+      "nodes": 495,
+      "edges": 382,
+      "buildMs": 77107,
+      "searchMs": 1,
+      "path": [
+        {
+          "id": "Q935",
+          "name": "Isaac Newton",
+          "birthYear": 1643,
+          "deathYear": 1727
+        },
+        {
+          "id": "Q9191",
+          "name": "RenÃ© Descartes",
+          "birthYear": 1596,
+          "deathYear": 1650
+        },
+        {
+          "id": "Q868",
+          "name": "Aristotle",
+          "birthYear": -383,
+          "deathYear": -321
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q935",
+          "to": "Q9191",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q9191",
+          "to": "Q868",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "Darwin -> Galileo": {
+      "found": true,
+      "hops": 5,
+      "nodes": 495,
+      "edges": 381,
+      "buildMs": 86394,
+      "searchMs": 1,
+      "path": [
+        {
+          "id": "Q1035",
+          "name": "Charles Darwin",
+          "birthYear": 1809,
+          "deathYear": 1882
+        },
+        {
+          "id": "Q5879",
+          "name": "Johann Wolfgang von Goethe",
+          "birthYear": 1749,
+          "deathYear": 1832
+        },
+        {
+          "id": "Q35802",
+          "name": "Benedictus de Spinoza",
+          "birthYear": 1632,
+          "deathYear": 1677
+        },
+        {
+          "id": "Q9047",
+          "name": "Gottfried Wilhelm Leibniz",
+          "birthYear": 1646,
+          "deathYear": 1716
+        },
+        {
+          "id": "Q39599",
+          "name": "Christiaan Huygens",
+          "birthYear": 1629,
+          "deathYear": 1695
+        },
+        {
+          "id": "Q307",
+          "name": "Galileo Galilei",
+          "birthYear": 1564,
+          "deathYear": 1642
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q1035",
+          "to": "Q5879",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q5879",
+          "to": "Q35802",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q35802",
+          "to": "Q9047",
+          "relation": "student",
+          "property": "P802",
+          "reversed": false
+        },
+        {
+          "from": "Q9047",
+          "to": "Q39599",
+          "relation": "doctoral advisor",
+          "property": "P184",
+          "reversed": false
+        },
+        {
+          "from": "Q39599",
+          "to": "Q307",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    }
+  },
+  "k_sweep": {
+    "k60": {
+      "found": true,
+      "hops": 2,
+      "nodes": 495,
+      "edges": 381,
+      "buildMs": 70925,
+      "searchMs": 3,
+      "path": [
+        {
+          "id": "Q937",
+          "name": "Albert Einstein",
+          "birthYear": 1879,
+          "deathYear": 1955
+        },
+        {
+          "id": "Q35802",
+          "name": "Benedictus de Spinoza",
+          "birthYear": 1632,
+          "deathYear": 1677
+        },
+        {
+          "id": "Q859",
+          "name": "Plato",
+          "birthYear": -428,
+          "deathYear": -348
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q937",
+          "to": "Q35802",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q35802",
+          "to": "Q859",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "k20": {
+      "found": true,
+      "hops": 3,
+      "nodes": 160,
+      "edges": 115,
+      "buildMs": 50619,
+      "searchMs": 1,
+      "path": [
+        {
+          "id": "Q937",
+          "name": "Albert Einstein",
+          "birthYear": 1879,
+          "deathYear": 1955
+        },
+        {
+          "id": "Q935",
+          "name": "Isaac Newton",
+          "birthYear": 1643,
+          "deathYear": 1727
+        },
+        {
+          "id": "Q9191",
+          "name": "René Descartes",
+          "birthYear": 1596,
+          "deathYear": 1650
+        },
+        {
+          "id": "Q859",
+          "name": "Plato",
+          "birthYear": -428,
+          "deathYear": -348
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q937",
+          "to": "Q935",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q935",
+          "to": "Q9191",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q9191",
+          "to": "Q859",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "k40": {
+      "found": true,
+      "hops": 3,
+      "nodes": 330,
+      "edges": 240,
+      "buildMs": 74176,
+      "searchMs": 0,
+      "path": [
+        {
+          "id": "Q937",
+          "name": "Albert Einstein",
+          "birthYear": 1879,
+          "deathYear": 1955
+        },
+        {
+          "id": "Q935",
+          "name": "Isaac Newton",
+          "birthYear": 1643,
+          "deathYear": 1727
+        },
+        {
+          "id": "Q9191",
+          "name": "René Descartes",
+          "birthYear": 1596,
+          "deathYear": 1650
+        },
+        {
+          "id": "Q859",
+          "name": "Plato",
+          "birthYear": -428,
+          "deathYear": -348
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q937",
+          "to": "Q935",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q935",
+          "to": "Q9191",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q9191",
+          "to": "Q859",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "k80": {
+      "found": true,
+      "hops": 2,
+      "nodes": 666,
+      "edges": 516,
+      "buildMs": 126476,
+      "searchMs": 1,
+      "path": [
+        {
+          "id": "Q937",
+          "name": "Albert Einstein",
+          "birthYear": 1879,
+          "deathYear": 1955
+        },
+        {
+          "id": "Q35802",
+          "name": "Benedictus de Spinoza",
+          "birthYear": 1632,
+          "deathYear": 1677
+        },
+        {
+          "id": "Q859",
+          "name": "Plato",
+          "birthYear": -428,
+          "deathYear": -348
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q937",
+          "to": "Q35802",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q35802",
+          "to": "Q859",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    },
+    "k100": {
+      "found": true,
+      "hops": 2,
+      "nodes": 840,
+      "edges": 669,
+      "buildMs": 157297,
+      "searchMs": 0,
+      "path": [
+        {
+          "id": "Q937",
+          "name": "Albert Einstein",
+          "birthYear": 1879,
+          "deathYear": 1955
+        },
+        {
+          "id": "Q35802",
+          "name": "Benedictus de Spinoza",
+          "birthYear": 1632,
+          "deathYear": 1677
+        },
+        {
+          "id": "Q859",
+          "name": "Plato",
+          "birthYear": -428,
+          "deathYear": -348
+        }
+      ],
+      "steps": [
+        {
+          "from": "Q937",
+          "to": "Q35802",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        },
+        {
+          "from": "Q35802",
+          "to": "Q859",
+          "relation": "influenced by",
+          "property": "P737",
+          "reversed": false
+        }
+      ]
+    }
+  }
+}
